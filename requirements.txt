@@ -1,0 +1,6 @@
+streamlit
+pandas
+plotly.express
+pydeck
+plotly.graph_objects
+prophet
