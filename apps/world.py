@@ -130,7 +130,7 @@ def app():
         ),
         barmode='group',
         bargap=0.2,
-        # margin=dict(l=0, r=0, b=0, t=0, pad=1)
+        margin=dict(l=0, r=0, b=0, t=0, pad=1)
         )
 
         st.plotly_chart(fig1, use_container_width=True)
@@ -169,7 +169,7 @@ def app():
         ),
         barmode='group',
         bargap=0.2,
-        # margin=dict(l=0, r=0, b=0, t=0, pad=1)
+        margin=dict(l=0, r=0, b=0, t=0, pad=1)
         )
         st.plotly_chart(fig2, use_container_width=True)
     # --- THIRD GRAPH ---
