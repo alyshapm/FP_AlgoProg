@@ -173,21 +173,20 @@ def app():
         )
         st.plotly_chart(fig2, use_container_width=True)
     # --- THIRD GRAPH ---
-    with row1_3:
-        new_confirmed = covid_data_2[covid_data_2["Country/Region"] == country]["confirmed"].iloc[-1]
-        new_deaths = covid_data_2[covid_data_2["Country/Region"] == country]["death"].iloc[-1]
-        new_recovered = covid_data_2[covid_data_2["Country/Region"] == country]["recovered"].iloc[-1]
-        new_active = covid_data_2[covid_data_2["Country/Region"] == country]["active"].iloc[-1]
+    new_confirmed = covid_data_2[covid_data_2["Country/Region"] == country]["confirmed"].iloc[-1]
+    new_deaths = covid_data_2[covid_data_2["Country/Region"] == country]["death"].iloc[-1]
+    new_recovered = covid_data_2[covid_data_2["Country/Region"] == country]["recovered"].iloc[-1]
+    new_active = covid_data_2[covid_data_2["Country/Region"] == country]["active"].iloc[-1]
 
-        title3 = f"Most recent cases in {country}"
-        fig3 = px.pie(
-            covid_data_2,
-            hole= 0.5,
-            names=["Confirmed", "Death", "Recovered", "Active"],
-            values=[new_confirmed, new_deaths, new_recovered, new_active],
-            title=title3
+    title3 = f"Most recent cases in {country}"
+    fig3 = px.pie(
+        covid_data_2,
+        hole= 0.5,
+        names=["Confirmed", "Death", "Recovered", "Active"],
+        values=[new_confirmed, new_deaths, new_recovered, new_active],
+        title=title3
         )
-        fig3.update_layout(
-            # margin=dict(l=0, r=0, b=0, t=0, pad=1),
+    fig3.update_layout(
+        # margin=dict(l=0, r=0, b=0, t=0, pad=1),
         )
-        st.plotly_chart(fig3, use_container_width=True)
+    st.plotly_chart(fig3, use_container_width=True)
