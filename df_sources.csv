@@ -1,0 +1,17 @@
+var in indonesia.py,var in jakarta.py,var in world.py,var in predictions.py,description,file,source
+-,-,df,-,COVID-19 data global,Github link,Our World in Data
+df_jakarta,df_crossplot,-,-,COVID-19 data in Jakarta,covid_jakarta.csv,corona.jakarta.go.id
+-,-,-,df,COVID-19 data in Indonesia,covid_indonesia.csv,covid19.go.id
+df_confirmed,-,-,-,Confirmed cases in Indonesia per province (timeseries),covid_province.csv,covid19.go.id
+df_recovered,-,-,-,Recovered cases in Indonesia per province (timeseries),covid_province_recovered.csv,covid19.go.id
+df_deaths,-,-,-,Death cases in Indonesia per province (timeseries),covid_province_death.csv,covid19.go.id
+df_map,-,-,-,Compiled COVID-19 data in Indonesia per province (without date),kasus_per_provinsi.csv,covid19.go.id
+-,df_airquality,-,-,Impact of COVID-19 on traffic in Jakarta,avgcarsped_jakarta.csv,Jakarta Smart City
+-,df_airquality,-,-,Impact of COVID-19 on air quality in Jakarta,avgcarsped_jakarta.csv,Jakarta Smart City
+-,df_histo,-,-,PSBB Violations (timeseries),pelanggaran_psbb_timescale.csv,Jakarta Smart City
+-,df_extrudingmap,-,-,PSBB Violations,pelanggaran_psbb.csv,Jakarta Smart City
+-,-,df_confirmed,-,Global confirmed cases,Github link,CSSE at John Hopkins University
+-,-,df_deaths,-,Global death cases,Github link,CSSE at John Hopkins University
+-,-,df_recovered,-,Global recovered cases,Github link,CSSE at John Hopkins University
+df_jakarta,df_crossplot,-,-,Life expectency per province (2020),covid_jakarta.csv,Badan Pusat Statistik
+df_jakarta,df_crossplot,-,-,Populationn of Jakarta by age group and gender (2020),covid_jakarta.csv,Jakarta Open Data
