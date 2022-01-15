@@ -91,7 +91,7 @@ def app():
             options = list(covid_data["Country/Region"].unique()),
         )
 
-    row1_1, row1_2, row1_3 = st.columns((2,2,2))
+    row1_1, row1_2 = st.columns((2,2))
 
     # --- FIRST GRAPH ---
     with row1_1:
