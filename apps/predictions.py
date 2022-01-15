@@ -11,7 +11,7 @@ def app():
     a.write("A crossplot allows users to plot two features against one another with markers, marker colour and marker sizes \
     representing third and fourth features.")
 
-    df = pd.read_csv("covid_indonesia.csv") # read file
+    df = pd.read_csv("data/covid_indonesia.csv") # read file
     df["Date"] = pd.to_datetime(df["Date"]) # ensure date is in the right format
     df = df.groupby("Date").sum()["total_infected"].reset_index() # groups table by Date and total_infected, removes other columns
 

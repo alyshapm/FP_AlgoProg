@@ -7,10 +7,10 @@ import plotly.express as px
 def app():
     st.title("COVID-19 in Jakarta")
 
-    df_crossplot = pd.read_csv("covid_jakarta.csv")
-    df_extrudingmap = pd.read_csv("pelanggaran_psbb.csv")
-    df_histo = pd.read_csv("pelanggaran_psbb_timeseries.csv")
-    df_airquality = pd.read_csv("avgcarspeed_jakarta.csv")
+    df_crossplot = pd.read_csv("data/covid_jakarta.csv")
+    df_extrudingmap = pd.read_csv("data/pelanggaran_psbb.csv")
+    df_histo = pd.read_csv("data/pelanggaran_psbb_timeseries.csv")
+    df_airquality = pd.read_csv("data/avgcarspeed_jakarta.csv")
 
     cols = list(df_crossplot.columns)
     cols.remove("district")
