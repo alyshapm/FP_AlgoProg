@@ -9,8 +9,7 @@ import plotly_express as px
 def app():
     st.title("COVID-19 Worldwide")
     a = st.expander('About (click to expand)')
-    a.write("A crossplot allows users to plot two features against one another with markers, marker colour and marker sizes \
-    representing third and fourth features.")
+    a.write("See COVID-19 trends between countries all around the world.")
 
     @st.experimental_memo
     def load_data(data):
@@ -93,7 +92,7 @@ def app():
 
     row1_1, row1_2 = st.columns((1,1))
 
-    # --- FIRST GRAPH ---
+    # --- MULTIPLE GRAPHS ---
     with row1_1:
         title1 = f"Total cases in {country}"
 
@@ -133,10 +132,26 @@ def app():
         # margin=dict(l=0, r=0, b=0, t=2, pad=1)
         )
 
+        # --- PIE CHART ---
+        new_confirmed = covid_data_2[covid_data_2["Country/Region"] == country]["confirmed"].iloc[-1]
+        new_deaths = covid_data_2[covid_data_2["Country/Region"] == country]["death"].iloc[-1]
+        new_recovered = covid_data_2[covid_data_2["Country/Region"] == country]["recovered"].iloc[-1]
+        new_active = covid_data_2[covid_data_2["Country/Region"] == country]["active"].iloc[-1]
+
+        title3 = f"Most recent cases in {country}"
+        fig3 = px.pie(
+            covid_data_2,
+            hole= 0.5,
+            names=["Confirmed", "Death", "Recovered", "Active"],
+            values=[new_confirmed, new_deaths, new_recovered, new_active],
+            title=title3
+            )
+
+        st.plotly_chart(fig3, use_container_width=True)
         st.plotly_chart(fig1, use_container_width=True)
 
     with row1_2:
-    # --- SECOND GRAPH ---
+    # --- BAR CHART---
         covid_data_3 = covid_data_2[covid_data_2["Country/Region"] == country][["Country/Region", "date", "confirmed"]].reset_index()
         covid_data_3["daily confirmed"] = covid_data_3["confirmed"] - covid_data_3["confirmed"].shift(1)
         covid_data_3["Rolling Avg."] = covid_data_3["daily confirmed"].rolling(window=7).mean()
@@ -174,22 +189,3 @@ def app():
         fig2.update_xaxes(showticklabels=False)
 
         st.plotly_chart(fig2, use_container_width=True)
-
-    # --- THIRD GRAPH ---
-    new_confirmed = covid_data_2[covid_data_2["Country/Region"] == country]["confirmed"].iloc[-1]
-    new_deaths = covid_data_2[covid_data_2["Country/Region"] == country]["death"].iloc[-1]
-    new_recovered = covid_data_2[covid_data_2["Country/Region"] == country]["recovered"].iloc[-1]
-    new_active = covid_data_2[covid_data_2["Country/Region"] == country]["active"].iloc[-1]
-
-    title3 = f"Most recent cases in {country}"
-    fig3 = px.pie(
-        covid_data_2,
-        hole= 0.5,
-        names=["Confirmed", "Death", "Recovered", "Active"],
-        values=[new_confirmed, new_deaths, new_recovered, new_active],
-        title=title3
-        )
-    fig3.update_layout(
-        # margin=dict(l=0, r=0, b=0, t=0, pad=1),
-        )
-    st.plotly_chart(fig3, use_container_width=True)

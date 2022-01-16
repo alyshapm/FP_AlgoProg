@@ -1,31 +1,44 @@
+from enum import auto
 import streamlit as st
+from PIL import Image
 
+# define class to combine multiple pages
 class MultiApp:
+    # constructor class that generates a list which stores the pages as an instance variable
     def __init__(self):
         self.apps = []
 
     def add_app(self, title, func):
+    # title (in str) is the title of the page which will be added to the list of apps that will be displayed in the dropdown navigation
+    # func displays the page in Streamlit
         self.apps.append({
             "title":title, 
             "function":func
             })
 
     def run(self):
+        # --- NAVIGATION ---
         st.sidebar.title("Navigation")
-
+        # dropdown displays list of pages and runs the selected page
         app = st.sidebar.selectbox(
-            "Select graph",
-            self.apps,
-            format_func=lambda app: app["title"])
+            "Select graph", # label
+            self.apps,  # list of options
+            format_func=lambda app: app["title"]) # receives the selected page as argument and returns it as str
 
+        # runs the app function
+        # app used to access the dictionary and return its corresponding value, or func
         app['function']()
 
-        st.sidebar.markdown('***')
-        st.sidebar.title("About")
+        # --- SIDEBAR STYLING ---
+        st.sidebar.markdown('***') # divider
+
+        # info box 1
+        st.sidebar.title("About") 
         st.sidebar.info(
             "Developed by Alysha Maulidina for Algorithm and Programming final project under Mr. Jude Martinez."
         )
 
+        # info box 2
         st.sidebar.markdown('***')
         exp = st.sidebar.expander(label="GitHub & Data Source")
         exp.write('''[<span>Source Code</span>](https://github.com/alyshapm)''', unsafe_allow_html=True)
@@ -33,7 +46,7 @@ class MultiApp:
         exp.write('''[<span>CSSE at JHU</span>](https://github.com/alyshapm) ''', unsafe_allow_html=True)
         exp.write('''[<span>covid.go.id</span>](https://github.com/alyshapm)''', unsafe_allow_html=True)
 
-
+        # hides the default Streamlit logo
         hide_st_style = """
             <style>
             footer {visibility: hidden;}

@@ -7,10 +7,14 @@ import plotly.express as px
 def app():
     st.title("COVID-19 in Jakarta")
 
-    df_crossplot = pd.read_csv("data/covid_jakarta.csv")
-    df_extrudingmap = pd.read_csv("data/pelanggaran_psbb.csv")
-    df_histo = pd.read_csv("data/pelanggaran_psbb_timeseries.csv")
-    df_airquality = pd.read_csv("data/avgcarspeed_jakarta.csv")
+    @st.experimental_memo
+    def load_data(data):
+        return pd.read_csv(data)
+
+    df_crossplot = load_data("data/covid_jakarta.csv")
+    df_extrudingmap = load_data("data/pelanggaran_psbb.csv")
+    df_histo = load_data("data/pelanggaran_psbb_timeseries.csv")
+    df_airquality = load_data("data/avgcarspeed_jakarta.csv")
 
     cols = list(df_crossplot.columns)
     cols.remove("district")
@@ -48,15 +52,6 @@ def app():
     size_by = row2_1.selectbox("Size markers by", list(sizing_labels.keys()))
     size_by = sizing_labels[size_by]
 
-    # region_list = list(df_melted["region"].unique())
-    # region_list.sort()
-    # region_list.insert(0, "Show all districts")
-
-    # region = st.selectbox("Show which region", region_list)
-
-    # if region != "Show all districs":
-    #     df_melted = df_melted[df_melted["region"] == region]
-
     color_up = df_melted["district"].drop_duplicates()
 
     fig = px.scatter(
@@ -80,6 +75,8 @@ def app():
     info2 = st.expander('About (click to expand)')
     info2.write("Distribution of PSBB violation reports from the *Cepat Respon Masyarakat* \
                 (Quick Reponse Community) complaint channel in Jakarta.")
+    df_histo["date"] = pd.to_datetime(df_histo["date"])
+    st.write("Last updated: " + str(df_histo["date"].iloc[-1].strftime("%B %d, %Y")))
 
     st.write(pdk.Deck(
         map_style="mapbox://styles/mapbox/dark-v9",
@@ -99,27 +96,27 @@ def app():
                 elevation_range=[0, 1000],
                 pickable=True,
                 extruded=True,
-            ),
-        ]
-    ))
+                ),
+            ]
+        ))
 
     # --- HISTOGRAM --- 
     fig_histo = px.histogram(
-        df_histo,
-        x="date",
-        y="total_reports"
-    )
+            df_histo,
+            x="date",
+            y="total_reports"
+        )
     fig_histo.update_traces(
-        marker_color="red",
-        opacity=0.4
-    )
+            marker_color="red",
+            opacity=0.4
+        )
     fig_histo.update_layout(
-        autosize=True,
-        height=300,
-        width=1000,
-        margin=dict(l=0, r=0, b=50, t=0, pad=1),
-        plot_bgcolor="rgba(0, 0, 0, 0)"
-    )
+            autosize=True,
+            height=300,
+            width=1000,
+            margin=dict(l=0, r=0, b=50, t=0, pad=1),
+            plot_bgcolor="rgba(0, 0, 0, 0)"
+        )
 
     st.plotly_chart(fig_histo, use_container_width=True)
     
@@ -128,6 +125,9 @@ def app():
     info3 = st.expander('About (click to expand)')
     info3.write("Indeks Standar Pencemaran Udara* (ISPU), or Air Pollution Standard Index in Jakarta\
                 during PSBB, from 1 February - 25 November 2020.")
+
+    df_airquality["date"] = pd.to_datetime(df_airquality["date"])
+    st.write("Last updated: " + str(df_airquality["date"].iloc[-1].strftime("%B %d, %Y")))
     
     fig_airquality = px.bar(
         df_airquality,
@@ -137,7 +137,7 @@ def app():
         color_continuous_scale="RdBu"
     )
     fig_airquality.update_traces(
-        marker_line_color = 'rgb(0, 2, 1)'
+        marker_line_width = 0,
     )
     fig_airquality.update_layout(
         plot_bgcolor="rgba(0, 0, 0, 0)",

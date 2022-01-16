@@ -47,10 +47,11 @@ def app():
     df_final = df_final.groupby(["date", "Province", "Lat", "Long", "Population"])[["confirmed", "deaths", "recovered", "active"]].sum().reset_index()
 
     df_final["date"] = pd.to_datetime(df_final["date"])
-    df_final["date"] = df_final["date"].astype(str) # date needs to be in string format for plotly animations to work
     # df_final = df_final[df_final["Province"] != 0]
 
     # ---- MAP ---
+    st.write("Last updated: " + str(df_final["date"].iloc[-1].strftime("%B %d, %Y")))
+
     st.subheader("Heatmap of COVID-19 in Indonesia")
     info1 = st.expander('About (click to expand)')
     info1.write("This map displays scatter markers using geo-coordinates and can help us identify spatial patterns in our data. The size of markers\
@@ -143,31 +144,34 @@ def app():
     df_final_query = df_final.query("Province in @province_selected")
 
     @st.experimental_memo
-    def plot_per_province(y_axis):
+    def plot_per_province(y_axis, title):
         fig3 = px.line(
             df_final_query, 
             x="date",
             y=y_axis,
-            color="Province"
+            color="Province",
+            title=title
             )
         fig3.update_layout(
-            margin=dict(l=0, r=0, b=0, t=0, pad=1)
+            margin=dict(l=0, r=0, b=0, t=30, pad=1)
         )
         return fig3
 
     row3_1, row3_2 = st.columns((3,3))
     with row3_1:
-        st.plotly_chart(plot_per_province("confirmed"), use_container_width=True)
-        st.plotly_chart(plot_per_province("recovered"), use_container_width=True)
+        st.plotly_chart(plot_per_province("confirmed", "Confirmed"), use_container_width=True)
+        st.plotly_chart(plot_per_province("recovered", "Recovered"), use_container_width=True)
     with row3_2:
-        st.plotly_chart(plot_per_province("deaths"), use_container_width=True)
-        st.plotly_chart(plot_per_province("active"), use_container_width=True)
+        st.plotly_chart(plot_per_province("deaths", "Deaths"), use_container_width=True)
+        st.plotly_chart(plot_per_province("active", "Active"), use_container_width=True)
     
     # --- SCATTER ---
     st.subheader("Crossplot timescale")
     info3 = st.expander('About (click to expand)')
     info3.write("A crossplot allows users to plot two features against one another with markers. The marker size here represents \
                 the number of COVID-19 death in each country. ")
+    
+    df_final["date"] = df_final["date"].astype(str) # date needs to be in string format for plotly animations to work
 
     @st.experimental_memo
     def scatter_plot(df):
@@ -181,19 +185,9 @@ def app():
         fig.update_layout(
             autosize=True,
             height=600,
+            width=100,
             margin=dict(l=0, r=0, b=20, t=10, pad=1)
         )
         return fig
-    
-    # fig4 = px.scatter(
-    #     df_final, x="Population", y = "confirmed", animation_frame=df_final["date"],
-    #     animation_group="Province", size="deaths", hover_name="Province", color="Province",
-    #     range_x=range_x, range_y=range_y, log_x=True
-    # )
-    # fig4.update_layout(
-    #     autosize=True,
-    #     height=600,
-    #     margin=dict(l=0, r=0, b=20, t=10, pad=1)
-    # )
 
     st.plotly_chart(scatter_plot(df_final), use_container_width=True)
