@@ -41,10 +41,11 @@ class MultiApp:
         # info box 2
         st.sidebar.markdown('***')
         exp = st.sidebar.expander(label="GitHub & Data Source")
-        exp.write('''[<span>Source Code</span>](https://github.com/alyshapm)''', unsafe_allow_html=True)
-        exp.write('''[<span>OWID</span>](https://github.com/alyshapm) ''', unsafe_allow_html=True)
-        exp.write('''[<span>CSSE at JHU</span>](https://github.com/alyshapm) ''', unsafe_allow_html=True)
-        exp.write('''[<span>covid.go.id</span>](https://github.com/alyshapm)''', unsafe_allow_html=True)
+        exp.write('''[<span>Source Code</span>](https://github.com/alyshapm/FP_AlgoProg)''', unsafe_allow_html=True)
+        exp.write('''[<span>OWID</span>](https://github.com/owid/covid-19-data) ''', unsafe_allow_html=True)
+        exp.write('''[<span>HU CSSE COVID-19 Data</span>](hhttps://github.com/CSSEGISandData/COVID-19) ''', unsafe_allow_html=True)
+        exp.write('''[<span>covid.go.id</span>](https://covid19.go.id/)''', unsafe_allow_html=True)
+        exp.write('''[<span>Corona Jakarta</span>](https://corona.jakarta.go.id/id)''', unsafe_allow_html=True)
 
         # hides the default Streamlit logo
         hide_st_style = """

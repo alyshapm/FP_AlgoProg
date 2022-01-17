@@ -143,7 +143,6 @@ def app():
     
     df_final_query = df_final.query("Province in @province_selected")
 
-    @st.experimental_memo
     def plot_per_province(y_axis, title):
         fig3 = px.line(
             df_final_query, 
