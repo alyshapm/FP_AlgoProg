@@ -1,7 +1,9 @@
 # Final Project: COVID-19 Dashboard
-For Algorithm and Programming, written in pure Python to interactively visualise COVID-19 statistics in Indonesia and the world.
+Design to interactively visualise COVID-19 statistics and its impact on the socia-economic landscape of Indonesia and the world.
 
 ## View the live app
+
+https://share.streamlit.io/alyshapm/FP_AlgoProg/main/app.py
 
 ## Run this app locally
 ```
