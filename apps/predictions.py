@@ -6,6 +6,7 @@ import plotly.express as px
 from prophet.plot import plot_plotly
 
 def app():
+    # title and descriptions
     st.title("COVID-19 Forecast in Indonesia")
     a = st.expander('About (click to expand)')
     a.write("The second graph shows a 3-month ahead forecast of confirmed cases of COVID-19 in Indonesia using Prophet.\
